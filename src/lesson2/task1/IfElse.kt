@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson2.task1
 
 import lesson1.task1.discriminant
@@ -33,9 +34,9 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = if ((age % 10) == 1) "$age год" else
-                                          if (age in 11..14) "$age лет" else
-                                              if ((age % 10) in 2..4) "$age года" else "$age лет"
+fun ageDescription(age: Int): String = if ((age in 11..14) or (age in 111..114)) "$age лет" else
+    if ((age % 10) == 1) "$age год" else
+        if ((age % 10) in 2..4) "$age года" else "$age лет"
 
 
 /**
@@ -53,8 +54,8 @@ fun timeForHalfWay(t1: Double, v1: Double,
     val s3 = v3 * t3
     val sh = (s1 + s2 + s3) / 2
     if (sh <= s1) return sh / v1
-    if (sh <= s2) return t1 + (sh / v2)
-    return t1 + t2 + (sh / v3)
+    if (sh <= s2) return t1 + ((sh - s1) / v2)
+    return t1 + t2 + ((sh - s1 - s2) / v3)
 }
 
 /**
@@ -113,7 +114,8 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    if ((b <= c) or (d <= a)) return -1
+    if ((b < c) or (d < a)) return -1
+    if ((b == c) or (d == a)) return 0
     if ((a < c) and (b <= d)) return b - c
     if (a < c) return d - c
     if (d < b) return d - a
