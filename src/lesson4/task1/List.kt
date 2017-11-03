@@ -122,6 +122,7 @@ fun mean(list: List<Double>): Double = when {
     list.size == 0 -> 0.0
     else -> list.sum() / list.size
 }
+
 /**
  * Средняя
  *
@@ -150,6 +151,7 @@ fun times(a: List<Double>, b: List<Double>): Double {
     if (a.size > 0) for (i in 0 until a.size) c += a[i] * b[i]
     return c
 }
+
 /**
  * Средняя
  *
@@ -158,7 +160,11 @@ fun times(a: List<Double>, b: List<Double>): Double {
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0.0 при любом x.
  */
-fun polynom(p: List<Double>, x: Double): Double = TODO()
+fun polynom(p: List<Double>, x: Double): Double {
+    var px = 0.0
+    for (i in 0..p.size) px += p[i] * Math.pow(x, i.toDouble())
+    return px
+}
 
 /**
  * Средняя
@@ -170,7 +176,15 @@ fun polynom(p: List<Double>, x: Double): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Double>): MutableList<Double> = TODO()
+fun accumulate(list: MutableList<Double>): MutableList<Double> {
+    if (list.size == 0) return list
+    var k = 0.0
+    for (i in 0 until list.size) {
+        list[i] += k
+        k = list[i]
+    }
+    return list
+}
 
 /**
  * Средняя
@@ -179,7 +193,18 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> = TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    var m = n
+    val result = mutableListOf<Int>()
+    while (m > 0) {
+        for (i in 2..m) if ((m % i) == 0) {
+            result.add(i)
+            break
+        }
+        m /= result.last()
+    }
+    return result
+}
 
 /**
  * Сложная
