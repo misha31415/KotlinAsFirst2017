@@ -34,9 +34,11 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = if ((age in 11..14) or (age in 111..114)) "$age лет" else
-    if ((age % 10) == 1) "$age год" else
-        if ((age % 10) in 2..4) "$age года" else "$age лет"
+fun ageDescription(age: Int): String = if ((age in 11..14) || (age in 111..114)) "$age лет" else when {
+    age % 10 == 1 -> "$age год"
+    age % 10 in 2..4 -> "$age года"
+    else -> "$age лет"
+}
 
 
 /**
@@ -70,8 +72,14 @@ fun timeForHalfWay(t1: Double, v1: Double,
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
-    if ((kingX == rookX1) or (kingY == rookY1)) if ((kingX == rookX2) or (kingY == rookY2)) return 3 else return 1
-    if ((kingX == rookX2) or (kingY == rookY2)) return 2 else return 0
+    val kr1 = kingX == rookX1 || (kingY == rookY1)
+    val kr2 = kingX == rookX2 || (kingY == rookY2)
+    when {
+        kr1 && kr2 -> return 3
+        kr1 -> return 1
+        kr2 -> return 2
+        else -> return 0
+    }
 }
 
 /**
@@ -87,11 +95,14 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    if ((kingX == rookX) or (kingY == rookY)) {
-        if (Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY)) return 3
-        return 1
+    val kr = kingX == rookX || (kingY == rookY)
+    val kb = Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY)
+    when {
+        kr && kb -> return 3
+        kr -> return 1
+        kb -> return 2
+        else -> return 0
     }
-    if (Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY)) return 2 else return 0
 }
 
 /**
@@ -114,9 +125,9 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    if ((b < c) or (d < a)) return -1
-    if ((b == c) or (d == a)) return 0
-    if ((a < c) and (b <= d)) return b - c
+    if ((b < c) || (d < a)) return -1
+    if ((b == c) || (d == a)) return 0
+    if ((a < c) && (b <= d)) return b - c
     if (a < c) return d - c
     if (d < b) return d - a
     return b - a

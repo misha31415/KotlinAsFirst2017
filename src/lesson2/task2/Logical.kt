@@ -18,7 +18,7 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Четырехзначное число назовем счастливым, если сумма первых двух ее цифр равна сумме двух последних.
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
-fun isNumberHappy(number: Int): Boolean = (((number / 1000) + ((number / 100) % 10)) == (((number / 10) % 10) + (number % 10)))
+fun isNumberHappy(number: Int): Boolean = (number / 1000 + number / 100 % 10) == (number / 10 % 10 + number % 10)
 
 /**
  * Простая
@@ -29,7 +29,7 @@ fun isNumberHappy(number: Int): Boolean = (((number / 1000) + ((number / 100) % 
  */
 
 
-fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = ((Math.abs(x2 - x1) == Math.abs(y2 - y1)) or (x1 == x2) or (y1 == y2))
+fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = (Math.abs(x2 - x1) == Math.abs(y2 - y1)) || (x1 == x2) || (y1 == y2)
 
 /**
  * Средняя
@@ -40,7 +40,7 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = ((Math.abs(x2 
  */
 
 fun circleInside(x1: Double, y1: Double, r1: Double,
-                 x2: Double, y2: Double, r2: Double): Boolean = (Math.sqrt(sqr(x2 - x1) + sqr(y2 - y1)) + r1 <= r2)
+                 x2: Double, y2: Double, r2: Double): Boolean = Math.sqrt(sqr(x2 - x1) + sqr(y2 - y1)) + r1 <= r2
 
 /**
  * Средняя
@@ -52,6 +52,13 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  * Вернуть true, если кирпич пройдёт
  */
 
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean =
-        ((Math.min(Math.min(a, b), Math.min(b, c)) <= Math.min(r, s)) and ((b <= Math.max(r, s)) or (a <= Math.max(r, s))) and
-                ((c <= Math.max(r, s)) or (a <= Math.max(r, s))) and ((c <= Math.max(r, s)) or (b <= Math.max(r, s))))
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
+    val mn = Math.min(r, s)
+    val mx = Math.max(r, s)
+    when {
+        Math.min(a, b) <= mn && Math.max(a, b) <= mx -> return true
+        Math.min(a, c) <= mn && Math.max(a, c) <= mx -> return true
+        Math.min(b, c) <= mn && Math.max(b, c) <= mx -> return true
+        else -> return false
+    }
+}
