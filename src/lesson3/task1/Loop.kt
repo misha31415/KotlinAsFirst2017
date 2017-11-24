@@ -144,12 +144,12 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
  */
 fun sin(x: Double, eps: Double): Double {
     var res = x;Double
-    var a = 3
-    var k = Math.pow(x, 3.0) / -6;Double
+    var a = 1
+    var k = x;Double
     while (Math.abs(k) > eps) {
-        res += k
         a += 2
-        k *= Math.pow(x, 2.0) / a / (1 - a)
+        k *= Math.pow(x, 2.0) / (a * (1 - a))
+        res += k
     }
     return res
 }
@@ -162,13 +162,13 @@ fun sin(x: Double, eps: Double): Double {
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
 fun cos(x: Double, eps: Double): Double {
-    var res = x;Double
-    var a = 2
-    var k = Math.pow(x, 2.0) / -2;Double
+    var res = 1.0
+    var a = 0
+    var k = 1.0
     while (Math.abs(k) > eps) {
-        res += k
         a += 2
-        k *= Math.pow(x, 2.0) / a / (1 - a)
+        k *= Math.pow(x, 2.0) / (a * (1 - a))
+        res += k
     }
     return res
 }

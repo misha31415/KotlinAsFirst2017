@@ -29,8 +29,8 @@ fun isNumberHappy(number: Int): Boolean = (number / 1000 + number / 100 % 10) ==
  */
 
 
-fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = (Math.abs(x2 - x1) == Math.abs(y2 - y1)) ||
-        (x1 == x2) || (y1 == y2)
+fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =
+        (Math.abs(x2 - x1) == Math.abs(y2 - y1)) || (x1 == x2) || (y1 == y2)
 
 /**
  * Средняя
