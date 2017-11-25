@@ -66,7 +66,35 @@ fun main(args: Array<String>) {
  * День и месяц всегда представлять двумя цифрами, например: 03.04.2011.
  * При неверном формате входной строки вернуть пустую строку
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val parts = str.split(" ")
+    if (parts.size == 3){
+        try{
+            val day = parts[0].toInt()
+            val month = when(parts[1]){
+            "января" -> 1
+            "февраля" -> 2
+            "марта" -> 3
+            "апреля" -> 4
+            "мая" -> 5
+            "июня" -> 6
+            "июля" -> 7
+            "августа" -> 8
+            "сентября" -> 9
+            "октября" -> 10
+            "ноября" -> 11
+            "декабря" -> 12
+            else -> return String()
+            }
+            val year = parts[2].toInt()
+            return String.format("%02d.%02d.%04d", day, month, year)
+        }
+        catch (e: NumberFormatException) {
+            return String()
+        }
+    }
+    return String()
+}
 
 /**
  * Средняя
@@ -75,7 +103,35 @@ fun dateStrToDigit(str: String): String = TODO()
  * Перевести её в строковый формат вида "15 июля 2016".
  * При неверном формате входной строки вернуть пустую строку
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val parts = digital.split(".")
+    if (parts.size == 3) {
+        try{
+            val day = if (parts[0].toInt() in 1..31)  parts[0].toInt() else return String()
+            val month = when(parts[1].toInt()){
+                1 -> "января"
+                2 -> "февраля"
+                3 -> "марта"
+                4 -> "апреля"
+                5 -> "мая"
+                6 -> "июня"
+                7 -> "июля"
+                8 -> "августа"
+                9 -> "сентября"
+                10 -> "октября"
+                11 -> "ноября"
+                12 -> "декабря"
+                else -> return String()
+            }
+            val year = parts[2].toInt()
+            return String.format("%d %s %d", day, month, year)
+        }
+        catch (e: NumberFormatException) {
+            return String()
+        }
+    }
+    return String()
+}
 
 /**
  * Средняя
