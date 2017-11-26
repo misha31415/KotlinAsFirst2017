@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson5.task1
 
 /**
@@ -48,12 +49,10 @@ fun main(args: Array<String>) {
         val seconds = timeStrToSeconds(line)
         if (seconds == -1) {
             println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
-        }
-        else {
+        } else {
             println("Прошло секунд с начала суток: $seconds")
         }
-    }
-    else {
+    } else {
         println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
     }
 }
@@ -68,28 +67,27 @@ fun main(args: Array<String>) {
  */
 fun dateStrToDigit(str: String): String {
     val parts = str.split(" ")
-    if (parts.size == 3){
-        try{
+    if (parts.size == 3) {
+        try {
             val day = parts[0].toInt()
-            val month = when(parts[1]){
-            "января" -> 1
-            "февраля" -> 2
-            "марта" -> 3
-            "апреля" -> 4
-            "мая" -> 5
-            "июня" -> 6
-            "июля" -> 7
-            "августа" -> 8
-            "сентября" -> 9
-            "октября" -> 10
-            "ноября" -> 11
-            "декабря" -> 12
-            else -> return String()
+            val month = when (parts[1]) {
+                "января" -> 1
+                "февраля" -> 2
+                "марта" -> 3
+                "апреля" -> 4
+                "мая" -> 5
+                "июня" -> 6
+                "июля" -> 7
+                "августа" -> 8
+                "сентября" -> 9
+                "октября" -> 10
+                "ноября" -> 11
+                "декабря" -> 12
+                else -> return String()
             }
             val year = parts[2].toInt()
-            return String.format("%02d.%02d.%04d", day, month, year)
-        }
-        catch (e: NumberFormatException) {
+            return String.format("%02d.%02d.%d", day, month, year)
+        } catch (e: NumberFormatException) {
             return String()
         }
     }
@@ -106,9 +104,9 @@ fun dateStrToDigit(str: String): String {
 fun dateDigitToStr(digital: String): String {
     val parts = digital.split(".")
     if (parts.size == 3) {
-        try{
-            val day = if (parts[0].toInt() in 1..31)  parts[0].toInt() else return String()
-            val month = when(parts[1].toInt()){
+        try {
+            val day = if (parts[0].toInt() in 1..31) parts[0].toInt() else return String()
+            val month = when (parts[1].toInt()) {
                 1 -> "января"
                 2 -> "февраля"
                 3 -> "марта"
@@ -125,8 +123,7 @@ fun dateDigitToStr(digital: String): String {
             }
             val year = parts[2].toInt()
             return String.format("%d %s %d", day, month, year)
-        }
-        catch (e: NumberFormatException) {
+        } catch (e: NumberFormatException) {
             return String()
         }
     }
@@ -145,7 +142,27 @@ fun dateDigitToStr(digital: String): String {
  * Все символы в номере, кроме цифр, пробелов и +-(), считать недопустимыми.
  * При неверном формате вернуть пустую строку
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String {
+    try {
+        val list = phone.filter { (it != ' ') && (it != '-') };String
+        if (list.length >= 7) {
+            var k = 0
+            if ('+' in list) if (list[0] != '+' || list[1] != '7') return "" else k += 2
+            if ('(' in list) {
+                val a = list.indexOf('(')
+                if ((a != 0 || a != 2) && "${list[a + 1]}${list[a + 2]}${list[a + 3]}${list[a + 4]}" != "921)") return ""
+                k += 5
+            }
+            if (list.length - k != 7) return ""
+            for (i in k until list.length) if (list[i] !in '0'..'9') return ""
+            return "+7921${list.substring(k, list.length)}"
+        }
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+    return ""
+}
+
 
 /**
  * Средняя
