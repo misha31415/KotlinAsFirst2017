@@ -158,7 +158,7 @@ fun flattenPhoneNumber(phone: String): String {
             } else return ""
         }
         for (i in k until kl.size) if (kl[i].toInt() - 48 !in 0..9) return ""
-        return kl.toString()
+        return kl.joinToString(separator = "", prefix = "", postfix = "")
     } catch (e: NumberFormatException) {
         return ""
     }
