@@ -147,7 +147,7 @@ fun sin(x: Double, eps: Double): Double {
     var a = 2
     var k = x;Double
     while (Math.abs(k) > eps) {
-        k *= -Math.pow(x, 2.0) / (a * (a + 1))
+        k *= -Math.pow(x, 2.0) / (a * (a + 1.0))
         res += k
         a += 2
     }
@@ -166,7 +166,7 @@ fun cos(x: Double, eps: Double): Double {
     var a = 1
     var k = 1.0
     while (Math.abs(k) > eps){
-        k *= -Math.pow(x, 2.0) / (a * (a + 1))
+        k *= -Math.pow(x, 2.0) / (a * (a + 1.0))
         res += k
         a += 2
     }
