@@ -144,13 +144,13 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
  */
 fun sin(x: Double, eps: Double): Double {
     var res = x;Double
-    var a = 1
+    var a = 2
     var k = x;Double
-    do {
-        a += 2
-        k *= Math.pow(x, 2.0) / (a * (1 - a))
+    while (Math.abs(k) > eps) {
+        k *= -Math.pow(x, 2.0) / (a * (a + 1))
         res += k
-    } while (Math.abs(k) > eps)
+        a += 2
+    }
     return res
 }
 
@@ -163,13 +163,13 @@ fun sin(x: Double, eps: Double): Double {
  */
 fun cos(x: Double, eps: Double): Double {
     var res = 1.0
-    var a = 0
+    var a = 1
     var k = 1.0
-    do {
-        a += 2
-        k *= Math.pow(x, 2.0) / (a * (1 - a))
+    while (Math.abs(k) > eps){
+        k *= -Math.pow(x, 2.0) / (a * (a + 1))
         res += k
-    }while (Math.abs(k) > eps)
+        a += 2
+    }
     return res
 }
 
