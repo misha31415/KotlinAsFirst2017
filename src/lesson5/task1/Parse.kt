@@ -145,22 +145,21 @@ fun dateDigitToStr(digital: String): String {
 fun flattenPhoneNumber(phone: String): String {
     try {
         val list = phone.filter { (it != ' ') && (it != '-') };String
-        if (list.length >= 7) {
-            var k = 0
-            if ('+' in list) if (list[0] != '+' || list[1] != '7') return "" else k += 2
-            if ('(' in list) {
-                val a = list.indexOf('(')
-                if ((a != 0 || a != 2) && "${list[a + 1]}${list[a + 2]}${list[a + 3]}${list[a + 4]}" != "921)") return ""
-                k += 5
-            }
-            if (list.length - k != 7) return ""
-            for (i in k until list.length) if (list[i] !in '0'..'9') return ""
-            return "+7921${list.substring(k, list.length)}"
+        var k = 0
+        if ('+' in list) if (list[0] != '+') return "" else k++
+        if ('(' in list) {
+            val a = list.indexOf('(')
+            val b = list.indexOf(')')
+            if (a < b && b != list.length - 1) {
+                list.removeRange(a, a)
+                list.removeRange(b, b)
+            } else return ""
         }
+        for (i in k until list.length) if (list[i] !in '0'..'9') return ""
+        return list
     } catch (e: NumberFormatException) {
         return ""
     }
-    return ""
 }
 
 
