@@ -254,7 +254,7 @@ fun fibSequenceDigit(n: Int): Int {
     var k = 1
     var res = 0
     while (m > 0) {
-        val l = fib(m)
+        val l = fib(k)
         var p = l
         var q = 0
         do {
