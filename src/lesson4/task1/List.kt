@@ -239,8 +239,8 @@ fun convert(n: Int, base: Int): List<Int> {
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
 fun convertToString(n: Int, base: Int): String {
-    val kl = String()
-    for (elem in convert(n, base)) if (elem > 9) kl + (elem + 87).toChar() else kl + "$elem"
+    var kl = String()
+    for (elem in convert(n, base)) if (elem > 9) kl += (elem + 87).toChar() else kl += "$elem"
     return kl
 }
 /**
