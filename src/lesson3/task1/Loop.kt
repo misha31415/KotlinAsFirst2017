@@ -86,9 +86,10 @@ fun fib(n: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    for(i in 1..m*n) if ((i % n == 0)&&(i % m == 0)) return i
-    return m*n
+    for (i in Math.max(m, n)..m * n) if ((i % n == 0) && (i % m == 0)) return i
+    return m * n
 }
+
 /**
  * Простая
  *
@@ -133,7 +134,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-    for (i in 1..n/2) if ((i*i >= m)&&(i*i <= n)) return true
+    for (i in 0..n / 2) if ((i * i >= m) && (i * i <= n)) return true
     return false
 }
 
@@ -148,11 +149,11 @@ fun sin(x: Double, eps: Double): Double {
     var res = x
     var a = 2
     var k = x
-    while (Math.abs(k) > eps) {
+    do {
         k *= -(x * x) / (a * (a + 1))
         res += k
         a += 2
-    }
+    } while (Math.abs(k) > eps)
     return res
 }
 
@@ -167,11 +168,11 @@ fun cos(x: Double, eps: Double): Double {
     var res = 1.0
     var a = 1
     var k = 1.0
-    while (Math.abs(k) > eps) {
+    do {
         k *= -(x * x) / (a * (a + 1))
         res += k
         a += 2
-    }
+    } while (Math.abs(k) > eps)
     return res
 }
 
@@ -192,6 +193,7 @@ fun revert(n: Int): Int {
     for (i in 0..k) m += Pow(k - i - 1) * ((n / Pow(i)) % 10)
     return m
 }
+
 fun Pow(q: Int): Int {
     var w = 1
     for (i in 1..q) w *= 10
