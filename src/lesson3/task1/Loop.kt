@@ -85,8 +85,10 @@ fun fib(n: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
-
+fun lcm(m: Int, n: Int): Int {
+    for(i in 1..m*n) if ((i % n == 0)&&(i % m == 0)) return i
+    return m*n
+}
 /**
  * Простая
  *
@@ -131,7 +133,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-    for (i in m..n) if (Math.pow(Math.sqrt(i.toDouble()).toInt().toDouble(), 2.0) == i.toDouble()) return true
+    for (i in 1..n/2) if ((i*i >= m)&&(i*i <= n)) return true
     return false
 }
 
@@ -143,11 +145,11 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
 fun sin(x: Double, eps: Double): Double {
-    var res = x;Double
+    var res = x
     var a = 2
-    var k = x;Double
+    var k = x
     while (Math.abs(k) > eps) {
-        k *= -Math.pow(x, 2.0) / (a * (a + 1.0))
+        k *= -(x * x) / (a * (a + 1))
         res += k
         a += 2
     }
@@ -166,7 +168,7 @@ fun cos(x: Double, eps: Double): Double {
     var a = 1
     var k = 1.0
     while (Math.abs(k) > eps) {
-        k *= -Math.pow(x, 2.0) / (a * (a + 1.0))
+        k *= -(x * x) / (a * (a + 1))
         res += k
         a += 2
     }
@@ -187,8 +189,13 @@ fun revert(n: Int): Int {
         k++
     } while (m != 0)
     m = 0
-    for (i in 0..k) m += Math.pow(10.0, (k - i - 1).toDouble()).toInt() * ((n / Math.pow(10.0, i.toDouble()).toInt()) % 10)
+    for (i in 0..k) m += Pow(k - i - 1) * ((n / Pow(i)) % 10)
     return m
+}
+fun Pow(q: Int): Int {
+    var w = 1
+    for (i in 1..q) w *= 10
+    return w
 }
 
 /**
@@ -210,10 +217,10 @@ fun hasDifferentDigits(n: Int): Boolean {
     val a = n % 10
     var m = n
     while (m != 0) {
-        if (m % 10 != a) return false
+        if (m % 10 != a) return true
         m /= 10
     }
-    return true
+    return false
 }
 
 /**
@@ -235,7 +242,7 @@ fun squareSequenceDigit(n: Int): Int {
             p /= 10
             q++
         } while (p != 0)
-        if (m <= q) res = (l / Math.pow(10.0, (q - m).toDouble()).toInt()) % 10
+        if (m <= q) res = (l / Pow(q - m)) % 10
         m -= q
         k++
     }
@@ -261,7 +268,7 @@ fun fibSequenceDigit(n: Int): Int {
             p /= 10
             q++
         } while (p != 0)
-        if (m <= q) res = (l / Math.pow(10.0, (q - m).toDouble()).toInt()) % 10
+        if (m <= q) res = (l / Pow(q - m)) % 10
         m -= q
         k++
     }

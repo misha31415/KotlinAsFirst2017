@@ -109,7 +109,9 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  */
 fun abs(v: List<Double>): Double {
     var a = 0.0
-    for (elem in v) a += elem * elem
+    for (elem in v) {
+        a += elem * elem
+    }
     return Math.sqrt(a)
 }
 
@@ -132,10 +134,9 @@ fun mean(list: List<Double>): Double = when {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    if (list.size == 0) return list else {
-        val k = mean(list)
-        for (i in 0 until list.size) list[i] -= k
-    }
+    if (list.size == 0) return list
+    val k = mean(list)
+    for (i in 0 until list.size) list[i] -= k
     return list
 }
 
@@ -148,7 +149,9 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  */
 fun times(a: List<Double>, b: List<Double>): Double {
     var c = 0.0
-    for (i in 0 until a.size) c += a[i] * b[i]
+    for (i in 0 until a.size) {
+        c += a[i] * b[i]
+    }
     return c
 }
 
@@ -226,7 +229,7 @@ fun convert(n: Int, base: Int): List<Int> {
     do {
         res.add(0, m % base)
         m /= base
-    } while(m != 0)
+    } while (m != 0)
     return res
 }
 
@@ -239,10 +242,13 @@ fun convert(n: Int, base: Int): List<Int> {
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
 fun convertToString(n: Int, base: Int): String {
-    var kl = String()
-    for (elem in convert(n, base)) if (elem > 9) kl += (elem + 87).toChar() else kl += "$elem"
+    var kl = ""
+    for (elem in convert(n, base)) {
+        if (elem > 9) kl += (elem + 'W'.toInt()).toChar() else kl += "$elem"
+    }
     return kl
 }
+
 /**
  * Средняя
  *
@@ -252,8 +258,16 @@ fun convertToString(n: Int, base: Int): String {
  */
 fun decimal(digits: List<Int>, base: Int): Int {
     var res = 0
-    for (i in 0 until digits.size) res += digits[digits.size - i - 1] * Math.pow(base.toDouble(), i.toDouble()).toInt()
+    for (i in 0 until digits.size) {
+        res += digits[digits.size - i - 1] * Pow(base, i)
+    }
     return res
+}
+
+fun Pow(r: Int, q: Int): Int {
+    var w = 1
+    for (i in 1..q) w *= r
+    return w
 }
 
 /**
@@ -267,7 +281,9 @@ fun decimal(digits: List<Int>, base: Int): Int {
  */
 fun decimalFromString(str: String, base: Int): Int {
     val kl = mutableListOf<Int>()
-    for (elem in str) if (elem.toInt() > 96) kl.add(elem.toInt() - 87) else kl.add(elem.toInt() - 48)
+    for (elem in str) {
+        if (elem.toInt() > '`'.toInt()) kl.add(elem.toInt() - 'W'.toInt()) else kl.add(elem.toInt() - '0'.toInt())
+    }
     return decimal(kl, base)
 }
 
